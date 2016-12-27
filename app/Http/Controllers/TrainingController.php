@@ -18,7 +18,9 @@ class TrainingController extends Controller
         
     	$trainingDates = Training::select(DB::raw('DATE(start) as start'))->groupBy(DB::raw('DATE(start)'))->get();
     	foreach ($trainingDates as $trainingDate => $date) {
-    	$trainings[$trainingDate] = Training::select(DB::raw('DATE(start) as start'),'team_id')->groupBy(DB::raw('DATE(start)'),'team_id')->get();
+    	$trainings[$date] = Training::select(DB::raw('TIME(start) as startTime'),'status_id','team_id')
+    		->groupBy(DB::raw('DATE(start)'),'team_id')
+    		->get();
     	}
         return view('training.index',['trainings' => $trainings]);//
     }
