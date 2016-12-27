@@ -27,4 +27,9 @@ class Trainer extends User
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function trainings()
+    {
+        return $this->belongsToMany('App\Training');
+    }
 }

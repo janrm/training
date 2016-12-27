@@ -16,15 +16,20 @@ class TrainingController extends Controller
     public function index()
     {
         
-    	$trainingDates = Training::select(DB::raw('DATE(start) as start'))->groupBy(DB::raw('DATE(start)'))->get();
+    	$trainingDates = Training::select(DB::raw('DISTINCT DATE_FORMAT(start,\'%e-%c-%Y\') as startDate, DATE(start) as start'))->where(DB::raw('start'),'<',DB::raw('now()'))->orderBy('start')->get();
     	foreach ($trainingDates as $trainingDate => $date) {
-    	$trainings[$date] = Training::select(DB::raw('TIME(start) as startTime'),'status_id','team_id')
-    		->orderBy('start')
+    	$trainings[$date['startDate']] = Training::select(DB::raw('TIME_FORMAT(start,\'%H:%i\') as startTime'), DB::raw('TIME_FORMAT(end,\'%H:%i\') as endTime'),'status_id','team_id')
+		->where([[DB::raw('DATE(start)'),'=',$date['start']],[DB::raw('start'),'<',DB::raw('now()')]])
+		->orderBy('start')
     		->get();
     	}
         return view('training.index',['trainings' => $trainings]);//
     }
 
+    public function trainers()
+    {
+	return view('training.trainer',['trainers' => [0 => 'Ellemijn', 1 => 'Maarten Salverda']]);
+    }
     /**
      * Show the form for creating a new resource.
      *
