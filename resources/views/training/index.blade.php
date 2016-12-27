@@ -7,7 +7,7 @@
 
 <table>
 @foreach($trainings as $training)
-	<tr><td>{{ $training->start }}</td><td>{{$training->end}}</td><td>{{$training->location_id}}</td><td>{{$training->team_id}}</td></tr>
+	<tr><td>{{ $training->startTime }}</td><td>{{$training->end}}</td><td>{{$training->location_id}}</td><td>{{$training->team_id}}</td></tr>
 	@endforeach
 <table>
 </div>
