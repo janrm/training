@@ -28,7 +28,24 @@ class TrainingController extends Controller
 
     public function trainers()
     {
-	return view('training.trainer',['trainers' => [0 => 'Ellemijn', 1 => 'Maarten Salverda']]);
+	return view('training.trainer',['trainers' => [
+		1000 => 'Maarten Salvereda', 
+		1001 => 'Ellemijn Meeuwes', 
+		1002 => 'Elise Talen', 
+		1003 => 'Kim Pullen', 
+		1004 => 'Daphne Brouwer', 
+		1005 => 'Megan Potman', 
+		1006 => 'Kaisly Joosten', 
+		1007 => 'Ties Allersma', 
+		1008 => 'Frederique Rijkse', 
+		1009 => 'Maarten Schut', 
+		1010 => 'Rik Agterbosch', 
+		1011 => 'Jasper van Eijs', 
+		1012 => 'Martijn Nefkens', 
+		1013 => 'Claire van der Bruggen', 
+		1014 => 'Caspar van Dalen', 
+		1015 => 'Rick Roodbergen', 
+			]]);
     }
     /**
      * Show the form for creating a new resource.
