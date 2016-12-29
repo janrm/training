@@ -26,10 +26,11 @@ class TrainingController extends Controller
         return view('training.index',['trainings' => $trainings]);//
     }
 
-    public function trainers()
-    {
+	    public function trainers()
+	    {
+	$trainingDates = Training::where('start','<','2016-12-03 00:00:00')->orderBy('team_id')->get();
 	return view('training.trainer',['trainers' => [
-		1000 => 'Maarten Salvereda', 
+		1000 => 'Maarten Salverda', 
 		1001 => 'Ellemijn Meeuwes', 
 		1002 => 'Elise Talen', 
 		1003 => 'Kim Pullen', 
@@ -45,7 +46,25 @@ class TrainingController extends Controller
 		1013 => 'Claire van der Bruggen', 
 		1014 => 'Caspar van Dalen', 
 		1015 => 'Rick Roodbergen', 
-			]]);
+			], 'trainingDates' => $trainingDates, 'teams' => [1001 => 'MD1', 
+1002 => 'JB1', 
+1003 => 'MB2', 
+1004 => 'JA1', 
+1005 => 'MD2', 
+1006 => 'MB1', 
+1007 => 'MA2', 
+1008 => 'MA1', 
+1009 => 'MD3', 
+1010 => 'MC5', 
+1011 => 'MC1', 
+1012 => 'JC1', 
+1013 => 'MB4', 
+1014 => 'MD4', 
+1015 => 'MC4', 
+1016 => 'MC2', 
+1017 => 'MC3', 
+1018 => 'MB3', ]
+]);
     }
     /**
      * Show the form for creating a new resource.
@@ -65,7 +84,22 @@ class TrainingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+	$input = $request->all();
+	foreach ($input['trainingDate_team_id'] as $trainingDate_id => $team_id)
+	{
+		$trainings = Training::where('team_id','=',$team_id)->get();
+		foreach ($trainings as $training_id => $training) 
+		{
+				echo "$training->id = App\Training::updateOrCreate(['id' => $training->id, 'team_id' => $team_id],]);<br/>";
+				$trainers = Training::find($training->id); 
+				$trainers->trainer()->sync($input['trainer'][$trainingDate_id],['status' => 101,]);
+				//foreach ($input['trainer'][$trainingDate_id] as $trainer) {
+				//	$trainers->trainer()->attach($trainer);
+				//}
+				//$trainers->trainers()->attach($input['trainer'][$training_id]);
+		}
+	}
+        var_dump($input);exit;//
     }
 
     /**

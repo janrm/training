@@ -3,10 +3,11 @@
 namespace App;
 
 use User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Trainer extends User
+class Trainer extends Model
 {
     use Notifiable;
 
@@ -16,7 +17,7 @@ class Trainer extends User
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'mobile', 'password',
+        'name', 
     ];
 
     /**
@@ -24,11 +25,11 @@ class Trainer extends User
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+//    protected $hidden = [
+//        'password', 'remember_token',
+//    ];
 
-    public function trainings()
+    public function training()
     {
         return $this->belongsToMany('App\Training');
     }
