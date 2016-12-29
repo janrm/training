@@ -78,7 +78,6 @@
 	    $('.status_cancel').click(function(){
 	        var thisid = $(this).attr('id');
 	        var this_html = $("#training_button"+thisid).html(); 
-	
 	        $.ajax({
 	            url: "status/confirmed/",
 	            method: "POST",
@@ -86,7 +85,7 @@
 	                id: thisid
 	            },
 	            success: function (response) {
-					$("#training_button"+thisid).html('<button id="'+thisid+'" type="button" class="status_confirm btn btn-success">&cross; Afgelast</button><button id="reset_'+thisid+'" type="button" class="btn status_reset">Reset</button>');
+					$("#training_button"+thisid).html('<button id="'+thisid+'" type="button" class="status_confirm btn btn-danger">&cross; Afgelast</button><button id="reset_'+thisid+'" type="button" class="btn status_reset">Reset</button>');
 					$("#reset_"+thisid).click(function(){
 						$.ajax({
 				            url: "status/reset/",
@@ -106,7 +105,7 @@
 	    $('.status_changed').unbind('click');
 	    $('.status_changed').click(function(){
 	        var thisid = $(this).attr('id');
-	
+	        var this_html = $("#training_button"+thisid).html(); 	
 	        $.ajax({
 	            url: "status/changed/",
 	            method: "POST",
@@ -114,7 +113,7 @@
 	                id: thisid
 	            },
 	            success: function (response) {
-					$("#training_button"+thisid).html('<button id="'+thisid+'" type="button" class="status_confirm btn btn-success">&circlearrowright; Vervangen</button><button id="reset_'+thisid+'" type="button" class="btn status_reset">Reset</button>');
+					$("#training_button"+thisid).html('<button id="'+thisid+'" type="button" class="status_confirm btn btn-warning">&circlearrowright; Vervangen</button><button id="reset_'+thisid+'" type="button" class="btn status_reset">Reset</button>');
 					$("#reset_"+thisid).click(function(){
 						$.ajax({
 				            url: "status/reset/",
